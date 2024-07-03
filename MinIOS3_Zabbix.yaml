@@ -1,0 +1,1762 @@
+zabbix_export:
+  version: '6.4'
+  template_groups:
+    - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    - uuid: a893ed392fc14573a111e465da227f79
+      template: 'Minio S3'
+      name: 'Minio S3'
+      groups:
+        - name: Templates/Applications
+      items:
+        - uuid: 379066123ec6410490a4ef78a5e9cad3
+          name: 'MinIO S3 Cluster Usage Deletemarker Total'
+          type: DEPENDENT
+          key: cluster.usage.deletemarker.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_usage_deletemarker_total{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 832bbc1d7c1c40b7a7ef2c9f00073c54
+          name: 'MinIO S3 Cluster Usage Version Total'
+          type: DEPENDENT
+          key: cluster.usage.version.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_usage_version_total{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 46598d59f38d459c8ef3e34798c5ec89
+          name: 'MinIO S3 Audit Failed Messages'
+          type: DEPENDENT
+          key: minio.audit.failed.messages
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_audit_failed_messages{server="{$MINIO.DNS.NAME}",target_id="sys_console_0"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: ae93c75778c94de593bbb8a7f9df2ec8
+          name: 'MinIO S3 Audit Target Queue Lenght'
+          type: DEPENDENT
+          key: minio.audit.target.queue.lenght
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_audit_target_queue_length{server="{$MINIO.DNS.NAME}",target_id="sys_console_0"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 568e7e0a792b4a89bdf41ed606005bd0
+          name: 'MinIO S3 Audit Total Messages'
+          type: DEPENDENT
+          key: minio.audit.total.messages
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_audit_total_messages{server="{$MINIO.DNS.NAME}",target_id="sys_console_0"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 391545a9bc134f51bf1a680ca15f473f
+          name: 'MinIO S3 Cluster Bucket Total'
+          type: DEPENDENT
+          key: minio.cluster.bucket.total
+          delay: '0'
+          units: Buckets
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_bucket_total{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 6add4e6979cf48c6a7a1fd1864e5e390
+          name: 'MinIO S3 Cluster Capacity Raw Free'
+          type: DEPENDENT
+          key: minio.cluster.capacity.raw.free
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_capacity_raw_free_bytes{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: e15a158301294cbda96c16bb5467cba3
+          name: 'MinIO S3 Cluster Capacity Raw Total'
+          type: DEPENDENT
+          key: minio.cluster.capacity.raw.total.bytes
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_capacity_raw_total_bytes{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 6e16f986b9be474daadbc9bd4a94e13b
+          name: 'MinIO S3 Cluster Capacity Useable Total'
+          type: DEPENDENT
+          key: minio.cluster.capacity.usable.total.bytes
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_capacity_usable_total_bytes{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 4b9bee6804a844cdaa29b72b7b5c28f4
+          name: 'MinIO S3 Cluster Capacity Useable Free'
+          type: DEPENDENT
+          key: minio.cluster.capacity.useable.free
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_capacity_usable_free_bytes{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 3f2a9fb98f5c42fb9cc820377c6d8bb2
+          name: 'MinIO S3 Cluster Drive Offline Total'
+          type: DEPENDENT
+          key: minio.cluster.drive.offline.total
+          delay: '0'
+          units: Drives
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_drive_offline_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 49375cef57424046af02a46017e16b91
+          name: 'MinIO S3 Cluster Drive Online Total'
+          type: DEPENDENT
+          key: minio.cluster.drive.online.total
+          delay: '0'
+          units: Drives
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_drive_online_total{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: cacd503229c846648fc1d001bd24918f
+          name: 'MinIO S3 Cluster Drive Total'
+          type: DEPENDENT
+          key: minio.cluster.drive.total
+          delay: '0'
+          units: Drives
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_drive_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 5ad2061519754cdeab385a39d244458d
+          name: 'MinIO S3 Cluster Health Status'
+          type: DEPENDENT
+          key: minio.cluster.health.status
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_health_status{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: b14a668eee154922b8c16f4154f91b13
+          name: 'MinIO S3 Cluster Nodes Offline Total'
+          type: DEPENDENT
+          key: minio.cluster.nodes.offline.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_nodes_offline_total{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+              error_handler: DISCARD_VALUE
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 4cbccac0d07b45e9a93f24ddaf74742e
+          name: 'MinIO S3 Cluster Nodes Online Total'
+          type: DEPENDENT
+          key: minio.cluster.nodes.online.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_nodes_online_total{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: c2042daa50064a169e50bffd9ca63fa6
+          name: 'MinIO S3 Cluster Objects Size Distribution BETWEEN_1_MB_AND_10_MB'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.BETWEEN.1.MB.AND.10.MB
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="BETWEEN_1_MB_AND_10_MB",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 98fc4f2f3a05403bbea2b35b7a03bfd7
+          name: 'MinIO S3 Cluster Objects Size Distribution BETWEEN_10_MB_AND_64_MB'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.BETWEEN.10.MB.AND.64.MB
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="BETWEEN_10_MB_AND_64_MB",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: c48e9526d69442d3afd383180a4bb566
+          name: 'MinIO S3 Cluster Objects Size Distribution BETWEEN_64_KB_AND_256_KB'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.BETWEEN.64.KB.AND.256.KB
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="BETWEEN_64_KB_AND_256_KB",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 07e1ce6a5877449c8cfd099fd9ca6eef
+          name: 'MinIO S3 Cluster Objects Size Distribution BETWEEN_64_MB_AND_128_MB'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.BETWEEN.64.MB.AND.128.MB
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="BETWEEN_64_MB_AND_128_MB",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 18b1669e1c234bb8b2da5dcc0a317f7f
+          name: 'MinIO S3 Cluster Objects Size Distribution BETWEEN_128_MB_AND_512_MB'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.BETWEEN.128.MB.AND.512.MB
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="BETWEEN_128_MB_AND_512_MB",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: ec68add3b4ab483f8954e457d9fb2b3d
+          name: 'MinIO S3 Cluster Objects Size Distribution BETWEEN_256_KB_AND_512_KB'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.BETWEEN.256.KB.AND.512.KB
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="BETWEEN_256_KB_AND_512_KB",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 74d087fe47014b9a807debd6b4d08082
+          name: 'MinIO S3 Cluster Objects Size Distribution BETWEEN_512_KB_AND_1_MB'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.BETWEEN.512.KB.AND.1.MB
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="BETWEEN_512_KB_AND_1_MB",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 65c61dabb3644b4b8d05f05703387791
+          name: 'MinIO S3 Cluster Objects Size Distribution BETWEEN_1024_B_AND_64_KB'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.BETWEEN.1024.B.AND.64.KB
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="BETWEEN_1024_B_AND_64_KB",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: b12fba3eab9b4268816f276705f2eac4
+          name: 'MinIO S3 Cluster Objects Size Distribution BETWEEN_1024_B_AND_1_MB'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.BETWEEN.1024B.AND.1.MB
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="BETWEEN_1024B_AND_1_MB",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 53fd1f746a9c4480a3353f7ff50d4f88
+          name: 'MinIO S3 Cluster Objects Size Distribution GREATER_THAN_512_MB'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.GREATER.THAN.512.MB
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="GREATER_THAN_512_MB",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 9a3167750dde4e7780608816eb4bcca6
+          name: 'MinIO S3 Cluster Objects Size Distribution LESS_THAN_1024_B'
+          type: DEPENDENT
+          key: minio.cluster.objects.size.distribution.LESS.THAN.1024.B
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_size_distribution{range="LESS_THAN_1024_B",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 63f9dd4e9f4f46d5af0b9b04d9d3a8c0
+          name: 'MinIO S3 Cluster Objects Version Distribution BETWEEN_2_AND_10'
+          type: DEPENDENT
+          key: minio.cluster.objects.version.distribution.BETWEEN.2.AND.10
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_version_distribution{range="BETWEEN_2_AND_10",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 553e9c5942e745499b6047107969752c
+          name: 'MinIO S3 Cluster Objects Version Distribution BETWEEN_10_AND_100'
+          type: DEPENDENT
+          key: minio.cluster.objects.version.distribution.BETWEEN.10.AND.100
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_version_distribution{range="BETWEEN_10_AND_100",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: cbd27b64381646a5935da1f3482c20b6
+          name: 'MinIO S3 Cluster Objects Version Distribution BETWEEN_100_AND_1000'
+          type: DEPENDENT
+          key: minio.cluster.objects.version.distribution.BETWEEN.100.AND.1000
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_version_distribution{range="BETWEEN_100_AND_1000",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: f64eed3cd07e4a68b9bab42529d74166
+          name: 'MinIO S3 Cluster Objects Version Distribution BETWEEN_1000_AND_10000'
+          type: DEPENDENT
+          key: minio.cluster.objects.version.distribution.BETWEEN.1000.AND.10000
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_version_distribution{range="BETWEEN_1000_AND_10000",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 8452a30022254b9389a5a03a014bbb64
+          name: 'MinIO S3 Cluster Objects Version Distribution GREATER_THAN_10000'
+          type: DEPENDENT
+          key: minio.cluster.objects.version.distribution.GREATER.THAN.10000
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_version_distribution{range="GREATER_THAN_10000",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: c40ce49f28e84c109816edaed6d9b378
+          name: 'MinIO S3 Cluster Objects Version Distribution SINGLE_VERSION'
+          type: DEPENDENT
+          key: minio.cluster.objects.version.distribution.SINGLE.VERSION
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_version_distribution{range="SINGLE_VERSION",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: f4412fe0ee92416a849ca917d9da0278
+          name: 'MinIO S3 Cluster Objects Version Distribution UNVERSIONED'
+          type: DEPENDENT
+          key: minio.cluster.objects.version.distribution.UNVERSIONED
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_objects_version_distribution{range="UNVERSIONED",server=~"node*"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 80cc7609589440b5b3f2c660c283bb2d
+          name: 'MinIO S3 Cluster Usage Object Total'
+          type: DEPENDENT
+          key: minio.cluster.usage.object.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_usage_object_total{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 1ab73f2a264f4d56b43aa744d298aa9c
+          name: 'MinIO S3 Cluster Usage Total Bytes'
+          type: DEPENDENT
+          key: minio.cluster.usage.total.bytes
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_usage_total_bytes{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: c39ba872c3e14fdd918b9e49561455ec
+          name: 'MinIO S3 Cluster Write Quorum'
+          type: DEPENDENT
+          key: minio.cluster.write.quorum
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_cluster_write_quorum{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: a282d10cda7a414c82040f8feec3d8c3
+          name: 'MinIO S3 Heal Time Last Activity'
+          type: DEPENDENT
+          key: minio.heal.time.last.activity.nano.seconds
+          delay: '0'
+          value_type: FLOAT
+          units: s
+          description: 'Time elapsed since last self healing activity'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_heal_time_last_activity_nano_seconds{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1.0E-9'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 0559db98c2e84b939311bee475e92b32
+          name: 'MinIO S3 Inter Node Traffic Dial AVG Time'
+          type: DEPENDENT
+          key: minio.inter.node.traffic.dial.avg.time
+          delay: '0'
+          units: s
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_inter_node_traffic_dial_avg_time{server="{$MINIO.DNS.NAME}"}'
+                - function
+                - avg
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: a545fbba53b644fb80a2b5572b194fd0
+          name: 'MinIO S3 Inter Node Traffic Dial Errors'
+          type: DEPENDENT
+          key: minio.inter.node.traffic.dial.errors
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_inter_node_traffic_dial_errors{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: d7ea01d3637a402b8cb18081b5633dbd
+          name: 'MinIO S3 Inter Node Traffic Errors Total'
+          type: DEPENDENT
+          key: minio.inter.node.traffic.errors.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_inter_node_traffic_errors_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: c855e7c209564b93890be60d914677fa
+          name: 'MinIO S3 Inter Node Traffic Received'
+          type: DEPENDENT
+          key: minio.inter.node.traffic.received.bytes
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_inter_node_traffic_received_bytes{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 8f34a02599c1469eaa06e47611e758ff
+          name: 'MinIO S3 Inter Node Traffic Sent'
+          type: DEPENDENT
+          key: minio.inter.node.traffic.sent.bytes
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_inter_node_traffic_sent_bytes{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: c6c80a463ad54ad680f1f7244a2dbf27
+          name: 'MinIO S3 Node File Descriptor Limit Total'
+          type: DEPENDENT
+          key: minio.node.file.descriptor.limit.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_file_descriptor_limit_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: a6ba79ab94ce4f4d9a66019fac72f4e8
+          name: 'MinIO S3 Node File Descriptor Open Total'
+          type: DEPENDENT
+          key: minio.node.file.descriptor.open.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_file_descriptor_open_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 4ebaed29715748f5908a88c3020caadd
+          name: 'MinIO S3 Node Go Routine Total'
+          type: DEPENDENT
+          key: minio.node.go.routine.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_go_routine_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: c35cf48411a5450cacf9d46382353c5c
+          name: 'MinIO S3 Node Ilm Expiry Missed Freeversions'
+          type: DEPENDENT
+          key: minio.node.ilm.expiry.missed.freeversions
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_ilm_expiry_missed_freeversions{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 327e8dbb176745608aecf958d3df94cf
+          name: 'MinIO S3 Node Ilm Expiry Missed Tasks'
+          type: DEPENDENT
+          key: minio.node.ilm.expiry.missed.tasks
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_ilm_expiry_missed_tasks{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 6f67b11b8108442d96de3853a560db68
+          name: 'MinIO S3 Node Ilm Expiry Missed Tierjournal Tasks'
+          type: DEPENDENT
+          key: minio.node.ilm.expiry.missed.tierjournal.tasks
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_ilm_expiry_missed_tierjournal_tasks{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 33b24965deb5439c86b44b0f42b8627c
+          name: 'MinIO S3 Node Ilm Expiry Num Workers'
+          type: DEPENDENT
+          key: minio.node.ilm.expiry.num.workers
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_ilm_expiry_num_workers{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 91247bfc5a88433789dff65c136d9b63
+          name: 'MinIO S3 Node Ilm Expiry Pending Tasks'
+          type: DEPENDENT
+          key: minio.node.ilm.expiry.pending.tasks
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_ilm_expiry_pending_tasks{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 7a5b9a6e32464de6bf732cf4bf2cc63c
+          name: 'MINIO S3 Node Ilm Transition Active Tasks'
+          type: DEPENDENT
+          key: minio.node.ilm.transition.active.tasks
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_ilm_transition_active_tasks{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 14f4dbf68608413bbef8b5f0f409dc22
+          name: 'MinIO S3 Node Ilm Transition Missed Immediate Tasks'
+          type: DEPENDENT
+          key: minio.node.ilm.transition.missed.immediate.tasks
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_ilm_transition_missed_immediate_tasks{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 2c1572e75da64d1c895cb4a15403e150
+          name: 'MinIO S3 Node Ilm Transition Pending Tasks'
+          type: DEPENDENT
+          key: minio.node.ilm.transition.pending.tasks
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_ilm_transition_pending_tasks{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 9fcdbfdfa9d04ffe8358d623e5816bd6
+          name: 'MinIO S3 Node Ilm Versions Scanned'
+          type: DEPENDENT
+          key: minio.node.ilm.versions.scanned
+          delay: '0'
+          value_type: FLOAT
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_ilm_versions_scanned{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 054eff0b872645d8b3f801e8701a0a22
+          name: 'MinIO S3 Node IO Rchar bytes'
+          type: DEPENDENT
+          key: minio.node.io.rchar.bytes
+          delay: '0'
+          value_type: FLOAT
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_io_rchar_bytes{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 5aec89f74b3645cb84791f3260a14ebf
+          name: 'Minio S3 Node IO Read Bytes'
+          type: DEPENDENT
+          key: minio.node.io.read.bytes
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_io_read_bytes{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 5afd0f1c03a4467893de077fa04989f8
+          name: 'Minio S3 Node IO Wchar Bytes'
+          type: DEPENDENT
+          key: minio.node.io.wchar.bytes
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_io_wchar_bytes{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 7da33e75e9af4d09a7c3564e71881d7c
+          name: 'MinIO S3 Node IO Write Bytes'
+          type: DEPENDENT
+          key: minio.node.io.write.bytes
+          delay: '0'
+          value_type: FLOAT
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_io_write_bytes{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: af5d94ef27864001945745c499fbeb33
+          name: 'MinIO S3 Node Process Cpu Total Seconds'
+          type: DEPENDENT
+          key: minio.node.process.cpu.total.seconds
+          delay: '0'
+          value_type: FLOAT
+          units: s
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_process_cpu_total_seconds{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 93146f3cba2e4bedb0839ffa737bad6c
+          name: 'MINIO S3 Node Process Resident Memory Bytes'
+          type: DEPENDENT
+          key: minio.node.process.resident.memory.bytes
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_process_resident_memory_bytes{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: b26214b9b7fb4ea79cf7620b2b8f6aab
+          name: 'MinIO S3 Node Process Starttime Seconds'
+          type: DEPENDENT
+          key: minio.node.process.starttime.seconds
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_process_starttime_seconds{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: JAVASCRIPT
+              parameters:
+                - 'var date = new Date(parseFloat(value) * 1000); return date.toISOString();'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 97be0408d1bf49a1a4910d7003bd5be6
+          name: 'MinIO S3 Node Process Uptime'
+          type: DEPENDENT
+          key: minio.node.process.uptime.seconds
+          delay: '0'
+          value_type: FLOAT
+          units: s
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_process_uptime_seconds{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 9551ec608e7c454d9d4c26356bf6d66c
+          name: 'MinIO S3 Node Scanner Bucket Scans Finished'
+          type: DEPENDENT
+          key: minio.node.scanner.bucket.scans.finished
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_scanner_bucket_scans_finished{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 5e656ccb80f7428aa1a63f484e51e4f3
+          name: 'MinIO S3 Node Scanner Bucket Scans Started'
+          type: DEPENDENT
+          key: minio.node.scanner.bucket.scans.started
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_scanner_bucket_scans_started{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 2893f9b12d0249d2a2de6d42530481d2
+          name: 'MinIO S3 Node Scanner Directories Scanned'
+          type: DEPENDENT
+          key: minio.node.scanner.directories.scanned
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_scanner_directories_scanned{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: f71ca3a45d014528904bd25efee3cf44
+          name: 'MinIO S3 Node Scanner Objects Scanned'
+          type: DEPENDENT
+          key: minio.node.scanner.objects.scanned
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_scanner_objects_scanned{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 865ad91e52f04b1ba09be19224f937c2
+          name: 'MinIO S3 Node Scanner Versions Scanned'
+          type: DEPENDENT
+          key: minio.node.scanner.versions.scanned
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_scanner_versions_scanned{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: f41a7b6234db47efb27045461811412e
+          name: 'MinIO S3 Node Syscall Read Total'
+          type: DEPENDENT
+          key: minio.node.syscall.read.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_syscall_read_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: c34d57d8fcec4652b5dd882fcf1fb65e
+          name: 'MinIO S3 Node Syscall Write Total'
+          type: DEPENDENT
+          key: minio.node.syscall.write.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_node_syscall_write_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 869ef60ef28c42bc94eb923725e53f3d
+          name: 'MinIO S3 Notify Current Send In Progress'
+          type: DEPENDENT
+          key: minio.notify.current.send.in.progress
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_notify_current_send_in_progress{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 5c0257e293474ebdb2efb08d64b8d4db
+          name: 'MinIO S3 Notify Events Errors Total'
+          type: DEPENDENT
+          key: minio.notify.events.errors.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_notify_events_errors_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 6cc24f23536548f9b6e634579dc5a452
+          name: 'Minio S3 Notify Events Sent Total'
+          type: DEPENDENT
+          key: minio.notify.events.sent.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_notify_events_sent_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: b4de6a8e419b4acda21e166eced55bfc
+          name: 'MinIO S3 Notify Events Skipped Total'
+          type: DEPENDENT
+          key: minio.notify.events.skipped.total
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_notify_events_skipped_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: bd3ed7a13d3746dbb4d2085e9c131071
+          name: 'Minio Get metrics'
+          type: HTTP_AGENT
+          key: minio.prometheus.metrics
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            - type: STR_REPLACE
+              parameters:
+                - '^\s*#.*$'
+                - ''
+          url: '{$S3.MINIO.API.URL}/minio/v2/metrics/cluster'
+          headers:
+            - name: Authorization
+              value: 'Bearer {$S3.MINIO.ACCESS.KEY}'
+          request_method: POST
+          tags:
+            - tag: component
+              value: raw
+        - uuid: 7cee8adb12ec4dbca07c321177d47d99
+          name: 'MinIO S3 Requests Incoming Total'
+          type: DEPENDENT
+          key: minio.s3.requests.incoming.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_s3_requests_incoming_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 38a21f2f32e848ffa83c11a6e35b0a4f
+          name: 'Minio S3 Requests Rejected Auth Total'
+          type: DEPENDENT
+          key: minio.s3.requests.rejected.auth.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_s3_requests_rejected_auth_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: fc7fd700863043fe8fe77df7901711d1
+          name: 'Minio S3 Requests Rejected Header Total'
+          type: DEPENDENT
+          key: minio.s3.requests.rejected.header.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_s3_requests_rejected_header_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 1cac84b5f840469aa86247eb6e1155c7
+          name: 'Minio S3 Requests Rejected Imvalid Total'
+          type: DEPENDENT
+          key: minio.s3.requests.rejected.invalid.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_s3_requests_rejected_invalid_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: d637c324023c42b6bac4f30dbca316be
+          name: 'Minio S3 Requests Rejected Timestamp Total'
+          type: DEPENDENT
+          key: minio.s3.requests.rejected.timestamp.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_s3_requests_rejected_timestamp_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 88dfa720f2d643e5abd6fd09fa236289
+          name: 'MinIO S3 Requests Waiting Total'
+          type: DEPENDENT
+          key: minio.s3.requests.waiting.total
+          delay: '0'
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_s3_requests_waiting_total{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: b47086ec3e5642f4821b594b6ef944f9
+          name: 'MinIO S3 Traffic Received Bytes'
+          type: DEPENDENT
+          key: minio.s3.traffic.received.bytes
+          delay: '0'
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_s3_traffic_received_bytes{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1'
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 615be2d155a649519adb9bd461a27c90
+          name: 'MinIO S3 Traffic Sent Bytes'
+          type: DEPENDENT
+          key: minio.s3.traffic.sent.bytes
+          delay: '0'
+          value_type: FLOAT
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_s3_traffic_sent_bytes{server="{$MINIO.DNS.NAME}"}'
+                - value
+                - ''
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: ec8da1f659324a94a3b06df609fdfa50
+          name: 'Minio S3 Software Commit Info (Hash)'
+          type: DEPENDENT
+          key: minio.software.commit.info
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_software_commit_info{commit="9d63bb1b418f6c1bbcc8434fff5d8aba810ee5d7",server="{$MINIO.DNS.NAME}"}'
+                - label
+                - commit
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 3dcb0e86f50d4315b0fa344cd7535164
+          name: 'MinIO S3 Software Version'
+          type: DEPENDENT
+          key: minio.software.version.info
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_software_version_info{server="{$MINIO.DNS.NAME}"}'
+                - label
+                - version
+          master_item:
+            key: minio.prometheus.metrics
+        - uuid: 0f1f50df3dbb4dbbb94a526587100405
+          name: 'MinIO S3 Tolerable Drive Failures'
+          type: CALCULATED
+          key: minio.tolerable.drive.failures
+          params: 'last(//minio.total.erasure.sets) * {$S3.MINIO.PARITY}'
+        - uuid: b81cb9fe337b409d80edfa0194eecb9f
+          name: 'MinIO S3 Tolerable Node Failures'
+          type: CALCULATED
+          key: minio.tolerable.node.failures
+          params: 'last(//minio.tolerable.drive.failures) / (last(//minio.cluster.drive.total) / (last(//minio.cluster.nodes.offline.total) + last(//minio.cluster.nodes.online.total)))'
+        - uuid: 871307c0a68441499efa9538069a5e7c
+          name: 'MinIO S3 Total Erasure Sets'
+          type: CALCULATED
+          key: minio.total.erasure.sets
+          params: 'last(//minio.cluster.drive.total) / {$S3.DRIVES.PER.ERASURE.SET}'
+        - uuid: e9a5ef0c90f74f62ab876c6ecd539b9d
+          name: 'MinIO S3 Usage Last Activity'
+          type: DEPENDENT
+          key: minio.usage.last.activity.nano.seconds
+          delay: '0'
+          value_type: FLOAT
+          units: s
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - 'minio_usage_last_activity_nano_seconds{server=~"{$MINIO.DNS.WILDCARD}"}'
+                - value
+                - ''
+            - type: MULTIPLIER
+              parameters:
+                - '1.0E-9'
+          master_item:
+            key: minio.prometheus.metrics
+      discovery_rules:
+        - uuid: f53852daac5d464cac15f985dc80087c
+          name: 'MinIO Cluster Health Erasure Set Healing Drives'
+          type: DEPENDENT
+          key: minio.cluster.health.erasure.set.healing.drives
+          delay: '0'
+          item_prototypes:
+            - uuid: f10de815145241dd98a63cce1b134235
+              name: 'MinIO S3 Cluster Health Erasure Set Healing Drives Pool {#POOL}, Set {#SET}'
+              type: DEPENDENT
+              key: 'minio.cluster.health.erasure.set.healing.drives.[{#POOL},{#SET}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{pool="{#POOL}",server=~"{$MINIO.DNS.WILDCARD}",set="{#SET}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+            - lld_macro: '{#POOL}'
+              path: '$.labels["pool"]'
+            - lld_macro: '{#SET}'
+              path: '$.labels["set"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_cluster_health_erasure_set_healing_drives{pool=~".*",server=~"{$MINIO.DNS.WILDCARD}",set=~".*"}'
+        - uuid: 524af6f3d4094272bcd3ce256790f04e
+          name: 'Minio S3 Cluster Health Erasure Set Online Drives'
+          type: DEPENDENT
+          key: minio.cluster.health.erasure.set.online.drives
+          delay: '0'
+          item_prototypes:
+            - uuid: 783ec3b059974b2793a3e7f087911a55
+              name: 'Minio S3 Cluster Health Erasure Set Online Drives Pool {#POOL}, Set {#SET}'
+              type: DEPENDENT
+              key: 'minio.cluster.health.erasure.set.online.drives.[{#POOL}.{#SET}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{pool="{#POOL}",server=~"{$MINIO.DNS.WILDCARD}",set="{#SET}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+              trigger_prototypes:
+                - uuid: 4a20e484dc084fc294c7859cc0203ec1
+                  expression: 'last(/Minio S3/minio.cluster.health.erasure.set.online.drives.[{#POOL}.{#SET}]) < {$S3.DRIVES.PER.ERASURE.SET}'
+                  name: 'Drive Failure on Pool {#POOL}, Set {#SET}'
+                  priority: WARNING
+                - uuid: f77f975966a64fa892d05ad1ba5dc8b4
+                  expression: '({$S3.DRIVES.PER.ERASURE.SET} - last(/Minio S3/minio.cluster.health.erasure.set.online.drives.[{#POOL}.{#SET}])) >= {$S3.MINIO.PARITY}'
+                  name: 'Minio Erasure Set Failure'
+                  priority: DISASTER
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+            - lld_macro: '{#POOL}'
+              path: '$.labels["pool"]'
+            - lld_macro: '{#SET}'
+              path: '$.labels["set"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_cluster_health_erasure_set_online_drives{pool=~".*",server=~"{$MINIO.DNS.WILDCARD}",set=~".*"}'
+        - uuid: 62ea50d3f7484afe951620214c34fbff
+          name: 'MinIO S3 Cluster Health Erasure Set Read Quorum'
+          type: DEPENDENT
+          key: minio.cluster.health.erasure.set.read.quorum
+          delay: '0'
+          item_prototypes:
+            - uuid: b430c5a70bd6498d9fb300029146b40b
+              name: 'Minio S3 Cluster Health Erasure Set Read Quorum Pool {#POOL}, Set {#SET}'
+              type: DEPENDENT
+              key: 'minio.cluster.health.erasure.set.read.quorum.[{#POOL},{#SET}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{pool="{#POOL}",server=~"{$MINIO.DNS.WILDCARD}",set="{#SET}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+            - lld_macro: '{#POOL}'
+              path: '$.labels["pool"]'
+            - lld_macro: '{#SET}'
+              path: '$.labels["set"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_cluster_health_erasure_set_read_quorum{pool=~".*",server=~"{$MINIO.DNS.WILDCARD}",set=~".*"}'
+        - uuid: 8d2b04eb3b9b4bac998571a180adfb47
+          name: 'MinIO Cluster Health Erasure Set Status'
+          type: DEPENDENT
+          key: minio.cluster.health.erasure.set.status
+          delay: '0'
+          item_prototypes:
+            - uuid: 944b3086dbdf4401943d86fd46eb0384
+              name: 'MinIO S3 Cluster Health Erasure Set Status Pool {#POOL}, Set {#SET}'
+              type: DEPENDENT
+              key: 'minio.cluster.health.erasure.set.status.[{#POOL},{#SET}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{pool="{#POOL}",server=~"{$MINIO.DNS.WILDCARD}",set="{#SET}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+            - lld_macro: '{#POOL}'
+              path: '$.labels["pool"]'
+            - lld_macro: '{#SET}'
+              path: '$.labels["set"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_cluster_health_erasure_set_status{pool=~".*",server=~"{$MINIO.DNS.WILDCARD}",set=~".*"}'
+        - uuid: 6bcab018ddb54b808f7510e354a1fb54
+          name: 'MinIO S3 Cluster Health Erasure Set Write Quorum'
+          type: DEPENDENT
+          key: minio.cluster.health.erasure.set.write.quorum
+          delay: '0'
+          item_prototypes:
+            - uuid: 68fee79d68294d59992cca7d7956ac7f
+              name: 'Minio S3 Cluster Health Erasure Set Write Quorum Pool {#POOL}, Set {#SET}'
+              type: DEPENDENT
+              key: 'minio.cluster.health.erasure.set.write.quorum.[{#POOL},{#SET}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{pool="{#POOL}",server=~"{$MINIO.DNS.WILDCARD}",set="{#SET}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+            - lld_macro: '{#POOL}'
+              path: '$.labels["pool"]'
+            - lld_macro: '{#SET}'
+              path: '$.labels["set"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_cluster_health_erasure_set_write_quorum{pool=~".*",server=~"{$MINIO.DNS.WILDCARD}",set=~".*"}'
+        - uuid: 5dc947a7e01143d192c84c0f0ce67278
+          name: 'MinIO S3 Cluster Webhook Failed Messages'
+          type: DEPENDENT
+          key: minio.cluster.webhook.failed.messages
+          delay: '0'
+          item_prototypes:
+            - uuid: e92a592b8d874d37b3527c84960fa2dc
+              name: 'MinIO S3 Cluster Webhook Failed Messages Endpoint {#ENDPOINT} Name {#NAME}'
+              type: DEPENDENT
+              key: 'minio.cluster.webhook.failed.messages.endpoint.[{#ENDPOINT},{#NAME}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{endpoint="{#ENDPOINT}",name="{#NAME}",server="{$MINIO.DNS.NAME}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#ENDPOINT}'
+              path: '$.labels["endpoint"]'
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+            - lld_macro: '{#NAME}'
+              path: '$.labels["name"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_cluster_webhook_failed_messages{endpoint=~".*",name=~".*",server="{$MINIO.DNS.NAME}"}'
+        - uuid: 3860f941eab34eee86ec50856d598c69
+          name: 'MinIO S3 Cluster Webhook Online'
+          type: DEPENDENT
+          key: minio.cluster.webhook.online
+          delay: '0'
+          item_prototypes:
+            - uuid: 24abbcc3264d49828cfe39a7a0062020
+              name: 'MinIO S3 Cluster Webhook Online Endpoint {#ENDPOINT} Name {#NAME}'
+              type: DEPENDENT
+              key: 'minio.cluster.webhook.online.[{#ENDPOINT},{#NAME}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{endpoint="{#ENDPOINT}",name="{#NAME}",server="{$MINIO.DNS.NAME}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#ENDPOINT}'
+              path: '$.labels["endpoint"]'
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+            - lld_macro: '{#NAME}'
+              path: '$.labels["name"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_cluster_webhook_online{endpoint=~".*",name=~".*",server="{$MINIO.DNS.NAME}"}'
+        - uuid: c38a3c85f2b64f8480dced156e438959
+          name: 'MinIO S3 Cluster Webhook Queue Lenght'
+          type: DEPENDENT
+          key: minio.cluster.webhook.queue.lenght
+          delay: '0'
+          item_prototypes:
+            - uuid: 2ec3be36f20a480ebbb4f4e95e20bb63
+              name: 'MinIO S3 Cluster Webhook Queue Lenght {#ENDPOINT} Name {#NAME}'
+              type: DEPENDENT
+              key: 'minio.cluster.webhook.queue.lenght.[{#ENDPOINT},{#NAME}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{endpoint="{#ENDPOINT}",name="{#NAME}",server="{$MINIO.DNS.NAME}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#ENDPOINT}'
+              path: '$.labels["endpoint"]'
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+            - lld_macro: '{#NAME}'
+              path: '$.labels["name"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_cluster_webhook_queue_length{endpoint=~".*",name=~".*",server="{$MINIO.DNS.NAME}"}'
+        - uuid: 5078734f4d894a55a7aa5e11da6e847e
+          name: 'MinIO S3 Cluster Webhook Total Messages'
+          type: DEPENDENT
+          key: minio.cluster.webhook.total.messages
+          delay: '0'
+          item_prototypes:
+            - uuid: 98b6b0e69d8f4763adee9c87c3875fc5
+              name: 'MinIO S3 Cluster Webhook Total Messages Endpoint {#ENDPOINT} Name {#NAME}'
+              type: DEPENDENT
+              key: 'minio.cluster.webhook.total.messages.[{#ENDPOINT},{#NAME}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{endpoint="{#ENDPOINT}",name="{#NAME}",server="{$MINIO.DNS.NAME}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#ENDPOINT}'
+              path: '$.labels["endpoint"]'
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+            - lld_macro: '{#NAME}'
+              path: '$.labels["name"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_cluster_webhook_total_messages{endpoint=~".*",name=~".*",server="{$MINIO.DNS.NAME}"}'
+        - uuid: 108bc926c6694ce8b09a4ea589081b1f
+          name: 'MinIO S3 Heal Objects Total'
+          type: DEPENDENT
+          key: minio.heal.objects.total
+          delay: '0'
+          item_prototypes:
+            - uuid: 7e167907e0a24aefadcf0a15ec35f5d7
+              name: 'MinIO S3 Heal Objects Total Type= {#TYPE}'
+              type: DEPENDENT
+              key: 'minio.heal.objects.total.[{#TYPE}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{server="{$MINIO.DNS.NAME}",type="{#TYPE}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+            - lld_macro: '{#TYPE}'
+              path: '$.labels["type"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_heal_objects_total{server="{$MINIO.DNS.NAME}",type=~".*"}'
+        - uuid: df484cbb7c74454285d7c7d68b3773ce
+          name: 'MinIO S3 Requests 4xx Errors Total'
+          type: DEPENDENT
+          key: minio.s3.requests.4xx.errors.total
+          delay: '0'
+          item_prototypes:
+            - uuid: 29f1cff7bf5b4a479883124825a5808e
+              name: 'MinIO S3 Requests 4xx Errors Total API {#API}'
+              type: DEPENDENT
+              key: 'minio.s3.requests.4xx.errors.total.[{#API}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{api="{#API}",server="{$MINIO.DNS.NAME}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#API}'
+              path: '$.labels["api"]'
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_s3_requests_4xx_errors_total{api=~".*",server="{$MINIO.DNS.NAME}"}'
+        - uuid: 62fbced990db4539bd250f06a3c41dd6
+          name: 'MinIO S3 Requests Errors Total'
+          type: DEPENDENT
+          key: minio.s3.requests.errors.total
+          delay: '0'
+          item_prototypes:
+            - uuid: 70242f028ff446449ae66f8862ee1e59
+              name: 'MinIO S3 Requests Errors Total API {#API}'
+              type: DEPENDENT
+              key: 'minio.s3.requests.errors.total.[{#API}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{api="{#API}",server="{$MINIO.DNS.NAME}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#API}'
+              path: '$.labels["api"]'
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_s3_requests_errors_total{api=~".*",server="{$MINIO.DNS.NAME}"}'
+        - uuid: 1c3c2973378f44a18ae1a83a4d390871
+          name: 'MinIO S3 Requests Inflight Total'
+          type: DEPENDENT
+          key: minio.s3.requests.inflight.total
+          delay: '0'
+          item_prototypes:
+            - uuid: 23ff709b476a48449914c324f854cb6d
+              name: 'MinIO S3 Requests Inflight Total API {#API}'
+              type: DEPENDENT
+              key: 'minio.s3.requests.inflight.total.[{#API}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{api="{#API}",server="{$MINIO.DNS.NAME}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#API}'
+              path: '$.labels["api"]'
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_s3_requests_inflight_total{api=~".*",server="{$MINIO.DNS.NAME}"}'
+        - uuid: a4bc6655fb21451da6d30e476fded3a9
+          name: 'MinIO S3 Requests Total'
+          type: DEPENDENT
+          key: minio.s3.requests.total
+          delay: '0'
+          item_prototypes:
+            - uuid: d711d049d30847659f533826dc757f44
+              name: 'MinIO S3 Requests Total API {#API}'
+              type: DEPENDENT
+              key: 'minio.s3.requests.total.[{#API}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{api="{#API}",server="{$MINIO.DNS.NAME}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#API}'
+              path: '$.labels["api"]'
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_s3_requests_total{api=~".*",server="{$MINIO.DNS.NAME}"}'
+        - uuid: 1e458aa80d774f9692de7e6c708e8e50
+          name: 'MinIOS3 Requests ttfb Seconds Distribution'
+          type: DEPENDENT
+          key: minio.s3.requests.ttfb.seconds.distribution
+          delay: '0'
+          item_prototypes:
+            - uuid: 86428fc015244ab09a011a7e8d60f245
+              name: 'MinIO S3 Requests ttfb Seconds Distribution API {#API} LE {#LE]'
+              type: DEPENDENT
+              key: 'minio.s3.requests.ttfb.seconds.distribution.[{#API},{#LE}]'
+              delay: '0'
+              preprocessing:
+                - type: PROMETHEUS_PATTERN
+                  parameters:
+                    - '{#METRIC}{api="{#API}",le="{#LE}",server="{$MINIO.DNS.NAME}"}'
+                    - value
+                    - ''
+              master_item:
+                key: minio.prometheus.metrics
+          master_item:
+            key: minio.prometheus.metrics
+          lld_macro_paths:
+            - lld_macro: '{#API}'
+              path: '$.labels["api"]'
+            - lld_macro: '{#LE}'
+              path: '$.labels["le"]'
+            - lld_macro: '{#METRIC}'
+              path: '$["name"]'
+          preprocessing:
+            - type: PROMETHEUS_TO_JSON
+              parameters:
+                - 'minio_s3_requests_ttfb_seconds_distribution{api=~".*",le=~".*",server="{$MINIO.DNS.NAME}"}'
+      macros:
+        - macro: '{$MINIO.DNS.NAME}'
+        - macro: '{$MINIO.DNS.WILDCARD}'
+          value: 'node*'
+          description: 'Wildcard for Cluster monitoring Tasks only done by one Server'
+        - macro: '{$S3.DRIVES.PER.ERASURE.SET}'
+          value: '16'
+        - macro: '{$S3.MINIO.ACCESS.KEY}'
+          type: SECRET_TEXT
+        - macro: '{$S3.MINIO.API.URL}'
+        - macro: '{$S3.MINIO.MAX.DEAD.DRIVES}'
+          description: 'Max Drives that can die before Cluster Crash'
+        - macro: '{$S3.MINIO.PARITY}'
+          value: '4'
+  triggers:
+    - uuid: 03eb094e3a6043829b6fa984345076e6
+      expression: 'min(/Minio S3/minio.cluster.drive.offline.total,30)>= last(/Minio S3/minio.tolerable.drive.failures)'
+      name: 'MinIO S3 Cluster Drive Offline DISASTER'
+      priority: DISASTER
+    - uuid: 9ee5dd1ebc3a49699eacecf0bfb12fbe
+      expression: |
+        min(/Minio S3/minio.cluster.drive.offline.total,30)>=1 and 
+        min(/Minio S3/minio.cluster.drive.offline.total,30)<=last(/Minio S3/minio.tolerable.drive.failures)
+      name: 'MinIO S3 Cluster Drive Offline Total WARN'
+      priority: WARNING
+  graphs:
+    - uuid: f6eeef77e4bb40018f28e22e44ff7694
+      name: 'Minio Useable Capacity'
+      graph_items:
+        - color: 199C0D
+          calc_fnc: ALL
+          item:
+            host: 'Minio S3'
+            key: minio.cluster.capacity.useable.free
