@@ -1,4 +1,4 @@
-# Installing and using this Template## Installing a Zabbix Template and Configuring Macros
+# Installing a Zabbix Template and Configuring Macros
 
 ## Step 1: Download and Import Zabbix Template
 
